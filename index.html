@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mauna Loa Atmospheric CO2 Concentration Data</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Mauna Loa Atmospheric CO2 Concentration Data">
+  <meta name="author" content="Jose Roberto Ayala Solares">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="libraries/widgets/bootstrap/css/bootstrap.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Mauna Loa Atmospheric CO2 Concentration Data</h1>
+    <h2>A Shiny App</h2>
+    <p>Jose Roberto Ayala Solares<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Forecasting</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>&quot;Forecasting is about predicting the future as accurately as possible, given all of the information available, including historical data and knowledge of any future events that might impact the forecasts.&quot; - <a href="https://www.otexts.org/fpp/1/2">Forecasting: principles and practice</a></li>
+<li>It is an active area of research.
+
+<ul>
+<li>Telecommunications </li>
+<li>Space Weather</li>
+<li>Power Generation</li>
+<li>Scheduling</li>
+<li>Capital Investments</li>
+<li>Production Lines</li>
+<li>Many more...</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Mauna Loa Atmospheric CO2 Concentration Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The data contains atmospheric concentrations of CO2 expressed in parts per million [ppm].</li>
+<li>It is a time series with 468 observations taken monthly from 1959 to 1997.</li>
+<li>For more information, check <a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/co2.html">here</a>.</li>
+</ul>
+
+<pre><code class="r">plot(co2, ylab = &quot;Atmospheric CO2 Concentration [ppm]&quot;)
+</code></pre>
+
+<p><img src="assets/fig/data-1.png" alt="plot of chunk data"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>ARIMA models</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>ARIMA stands for AutoRegressive Integrated Moving Average.</li>
+<li>ARIMA models can be written as:</li>
+</ul>
+
+<p>\[\begin{equation}y'_{t} = c +
+\phi_{1}y'_{t-1} + \cdots + \phi_{p}y'_{t-p} +
+\theta_{1}e_{t-1} + \cdots + \theta_{q}e_{t-q} + e_{t}
+\end{equation}\]</p>
+
+<p>where \(y_{t}\) is a value of the time series at time \(t\), \(y'_{t}\) is the differenced series, \(e_{t}\) is the error at time \(t\), \(p\) is the order of the autoregressive part, and \(q\) order of the moving average part.</p>
+
+<ul>
+<li>The coefficients \(\phi_{1},\cdots,\phi_{p}\), \(\theta_{1},\cdots,\theta_{q}\) and the values of \(p\) and \(q\), are unknowns and need to be identified.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>The Shiny App</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The developed shiny app fits an ARIMA model on the atmospheric CO2 concentration data, where the user can specify the start year of the time series.</li>
+<li>The shiny app plots the time series together with future predictions, where the horizon is specified by the user.</li>
+</ul>
+
+<pre><code class="r">library(forecast)
+fit &lt;- auto.arima(window(co2, start = 1980))
+plot(forecast(fit, h = 100), xlab = &quot;Year&quot;, ylab = &quot;Atmospheric CO2 Concentration [ppm]&quot;, main = &quot;&quot;)
+</code></pre>
+
+<p><img src="assets/fig/plot-1.png" alt="plot of chunk plot"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Forecasting'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Mauna Loa Atmospheric CO2 Concentration Data'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='ARIMA models'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='The Shiny App'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="libraries/widgets/bootstrap/js/bootstrap.min.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootbox.min.js"></script>
+
+  <script>  
+  $(function (){ 
+    $("#example").popover(); 
+    $("[rel='tooltip']").tooltip(); 
+  });  
+  </script>  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
