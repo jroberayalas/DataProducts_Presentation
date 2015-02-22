@@ -50,7 +50,7 @@ $$\begin{equation}y'_{t} = c +
 \theta_{1}e_{t-1} + \cdots + \theta_{q}e_{t-q} + e_{t}
 \end{equation}$$
 
-where $y_{t}$ is a value of the time series at time $t$, $y'_{t}$ is the differenced series, $e_{t}$ is the error at time $t$, $p$ is the order of the autoregressive part, and $q$ order of the moving average part.
+where $y_{t}$ is a value of the time series at time $t$, $y'_{t}$ is the differenced series, $e_{t}$ is the error at time $t$, $p$ is the order of the autoregressive part, and $q$ is the order of the moving average part.
 
 + The coefficients $\phi_{1},\cdots,\phi_{p}$, $\theta_{1},\cdots,\theta_{q}$ and the values of $p$ and $q$, are unknowns and need to be identified.
 
